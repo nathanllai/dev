@@ -1,0 +1,30 @@
+#include <iostream>
+#include "stack.h"
+
+// Input stack has numbers popped out of/pushed into it depending on what's less than/greater than
+
+template <typename T>
+Stack<T> Sort(Stack<T> &s) {
+  Stack<T> s2;
+
+  while (s.Size()) {
+      T item = s.Top();
+      s.Pop();
+
+      while(s2.Size() && s2.Top() < item) {
+        // Popping from s2 and pushing back onto input stack
+        s.Push(s2.Top());
+        s2.Pop();
+      }
+
+      // Now we can push item onto s2
+      s2.Push(item);
+  }
+  return s2;
+}
+
+// complexity is O(n^2)
+// Worst case scenario is when List is already sorted
+// Input size is O(n)
+// Auxiliary space is O(n)
+// Space (total) complexity is O(n)
